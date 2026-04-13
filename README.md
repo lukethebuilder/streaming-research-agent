@@ -4,9 +4,9 @@ An autonomous research assistant that searches the web, reads sources, and strea
 
 ---
 
-![screenshot placeholder](docs/screenshot.png)
+![Empty state](public/screenshots/empty-state.png)
 
-> Replace `docs/screenshot.png` with an actual screenshot or GIF once the app is running.
+![Answer with citations](public/screenshots/answer.png)
 
 ---
 
