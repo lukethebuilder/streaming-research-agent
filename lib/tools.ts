@@ -1,6 +1,6 @@
-import type Anthropic from '@anthropic-ai/sdk/resources'
+import type { Tool } from '@anthropic-ai/sdk/resources'
 
-export const tools: Anthropic.Tool[] = [
+export const tools: Tool[] = [
   {
     name: 'search',
     description:
