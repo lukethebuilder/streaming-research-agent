@@ -47,6 +47,12 @@ export default function Chat() {
         body: JSON.stringify({ messages: [{ role: 'user', content: query }] }),
       })
 
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => `HTTP ${response.status}`)
+        updateTurn({ answer: `Request failed (${response.status}): ${errorText}` })
+        return
+      }
+
       if (!response.body) return
 
       const reader = response.body.getReader()

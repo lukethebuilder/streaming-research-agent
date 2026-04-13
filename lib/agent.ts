@@ -51,13 +51,17 @@ export async function runAgent(
 
     const response = await stream.finalMessage()
 
-    if (response.stop_reason === 'end_turn') {
+    if (response.stop_reason === 'end_turn' || response.stop_reason === 'max_tokens') {
       return
     }
 
     const toolUseBlocks = response.content.filter(
       (block): block is Anthropic.ToolUseBlock => block.type === 'tool_use'
     )
+
+    if (toolUseBlocks.length === 0) {
+      return
+    }
 
     messages.push({ role: 'assistant', content: response.content })
 
@@ -68,11 +72,15 @@ export async function runAgent(
       onToolCall(block.name, input)
 
       let result: string
-      if (block.name === 'search') {
-        const sources = await search(input.query)
-        result = JSON.stringify(sources)
-      } else {
-        result = await read(input.url)
+      try {
+        if (block.name === 'search') {
+          const sources = await search(input.query)
+          result = JSON.stringify(sources)
+        } else {
+          result = await read(input.url)
+        }
+      } catch (err) {
+        result = `Error reading source: ${err instanceof Error ? err.message : String(err)}`
       }
 
       onToolResult(block.name, result)

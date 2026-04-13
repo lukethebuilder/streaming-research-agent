@@ -1,9 +1,7 @@
 const TRUNCATE_LENGTH = 6000
 
 export async function read(url: string): Promise<string> {
-  const headers: Record<string, string> = {
-    Accept: 'application/json',
-  }
+  const headers: Record<string, string> = {}
 
   if (process.env.JINA_API_KEY) {
     headers['Authorization'] = `Bearer ${process.env.JINA_API_KEY}`
