@@ -1,6 +1,7 @@
 # Research Agent
 
 An autonomous research assistant that searches the web, reads sources, and streams a synthesized answer with inline citations — built from scratch without any agent framework.
+> Built with Claude.
 
 ---
 
